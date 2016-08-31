@@ -15,39 +15,42 @@
 using UnityEngine;
 using System.Collections;
 
-public class BrickController : MonoBehaviour 
+public class BrickController : QuestionBlockController 
 {
+	// Public Variables
+	//public Transform hatCheck;		// Stores a reference to the HatCheck gameobject
 
-	public Transform hatCheck;		// Stores a reference to the HatCHeck gameobject
+	public bool canSpawnCoin = true;		// Stores check to see if an object can spawn a coin
 
-	public bool hatted = false;	// Stores a bool to check if the player "Hats" the block"
+	//Private Variables
+	//private bool hatted = false;	// Stores a bool to check if the player "Hats" the block"
 
+
+	// Raycast checks to see if player "hatted" the block
 	void Update()
 	{
 		// Raycast checks to see if the player "Hatted" the block
-		hatted = Physics2D.Linecast(transform.position, hatCheck.position , 1 << LayerMask.NameToLayer("Ground"));
+		//hatted = Physics2D.Linecast(transform.position, hatCheck.position , 1 << LayerMask.NameToLayer("Ground"));
 	}
 
-
-
+	// If the player successfully collides, and hatted the block
 	void OnCollisionEnter2D(Collision2D col)
 	{
 
 		// If the block has successfully been "hatted" by the player
 		// Will allow block to move up by a fraction of the transform
-		if (hatted == true)
+		if (col.gameObject.tag == "Hat")
 		{
+
+			Debug.Log("collide");
 			// Calls the block wiggle function to wiggle the box as a coroutine
 			// This allows the function to wait a certain time before a statement executes
 			StartCoroutine(blockWiggle());
 
 			// Ensures the coroutine will not run contiuously
-			hatted = false;
+			//hatted = false;
 		}
-
-
 	}
-
 
 
 	// Coroutine function -- Allows the function to wait inside the function call
@@ -59,6 +62,12 @@ public class BrickController : MonoBehaviour
 
 		// Moves block up a fraction of a Unity unit
 		this.transform.position = new Vector2(xPos, yPos + 0.2f);
+
+		if (canSpawnCoin)
+		{
+			// Spawns a coin above the block
+			spawnCoin();
+		}
 
 		// Waits a fraction of a second before the next statement gets called
 		yield return new WaitForSeconds(0.08f);
