@@ -17,7 +17,28 @@ public class QuestionBlockController : MonoBehaviour
 	// Public Variables 
 	public GameObject coin;		// Stores a reference to a coin GameObject
 
+	public GameObject DisabledBlock;
+
 	public int numOfCoins;		// Stores how many coins the block holds before it's deemed empty
+
+	// Protected Variables
+	protected GameObject clone;
+
+	// Private Variables
+	private Animator anim;
+
+	private SpriteRenderer spriteR;
+
+
+
+	void Start()
+	{
+		anim = GetComponent<Animator>();
+		spriteR = GetComponent<SpriteRenderer>();
+
+		anim.enabled = true;
+		
+	}
 
 
 	public void spawnCoin()
@@ -31,19 +52,32 @@ public class QuestionBlockController : MonoBehaviour
 		// If there are coins attached to this block that are spawnable
 		if (numOfCoins > 0)
 		{
-		// Spawns a coin above the current block	
-		Instantiate(coin, new Vector2(xPos, yPos + 1), Quaternion.identity);
+			// Spawns a coin above the current block	
+			clone = Instantiate(coin, new Vector2(xPos, yPos + 1), Quaternion.identity) as GameObject;
 		
-		// Decraments num of Coins down by 1
-		numOfCoins--;
-		}
-		else 	// If theres no more coins attached to this block
-		{
-			Debug.Log("No coin to spawn");
-			return;	// Do nothing
+			// Decraments num of Coins down by 1
+			numOfCoins--;
+
+			// If the ammount of coins inside the block is == to 0
+				// Turn the block's animation off, defaulting to the "disabled state"
+			if (numOfCoins == 0)
+			{
+				spriteR.enabled = false;
+				DisabledBlock.SetActive(true);
+			}
 		}
 
-		//yield return new WaitForSeconds(0.4f);
+		// If theres no more coins attached to this block
+			// Do nothing
+		else 	
+		{
+			// Prints to the console...
+			Debug.Log("No coin to spawn");
+
+			// Ensures the nothing happens
+			return;	// Do nothing
+
+		}
 	}
 
 }

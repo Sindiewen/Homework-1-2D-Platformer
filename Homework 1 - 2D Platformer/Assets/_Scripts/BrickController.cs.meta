@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: 0aa7b30b80c1f5646a473fe09b096c84
-timeCreated: 1472594385
+timeCreated: 1472677813
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - coin: {instanceID: 0}
+  - DisabledBlock: {fileID: 21300004, guid: d5fab5aa903314c1480176a4ee0c235e, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
