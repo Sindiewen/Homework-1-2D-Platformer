@@ -39,7 +39,7 @@ public class BrickController : QuestionBlockController
 
 		// If the block has successfully been "hatted" by the player
 		// Will allow block to move up by a fraction of the transform
-		if (col.gameObject.tag == "Hat")
+		if (col.gameObject.CompareTag("Player"))
 		{
 
 			Debug.Log("collide");
