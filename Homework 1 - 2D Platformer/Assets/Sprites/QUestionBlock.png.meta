@@ -1,12 +1,13 @@
 fileFormatVersion: 2
 guid: d5fab5aa903314c1480176a4ee0c235e
-timeCreated: 1472590350
+timeCreated: 1472712732
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: QUestionBlock_0
     21300002: QUestionBlock_1
     21300004: QUestionBlock_2
+    21300006: QUestionBlock_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -87,6 +88,19 @@ TextureImporter:
         serializedVersion: 2
         x: 176
         y: 117
+        width: 80
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: QUestionBlock_3
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 22
         width: 80
         height: 81
       alignment: 0

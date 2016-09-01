@@ -177,6 +177,9 @@ public class PlayerMovement : MonoBehaviour
 		// Flips the sprite by multiplying
 		transform.localScale = theScale; 
 	}
+
+
+
 		
 
 

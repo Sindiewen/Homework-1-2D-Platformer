@@ -15,14 +15,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class QuestionBlockController : MonoBehaviour 
+public class QuestionBlockController : CoinCounter 
 {
 
 	// Public Variables 
 	public GameObject coin;				// Stores a reference to a coin GameObject
 	public GameObject DisabledBlock;	// Stores a reference to the disabled block of this object
 
-	public Text countText;				// Stores the Game object of the Text Object
+	//public Text countText;				// Stores the Game object of the Text Object
 
 	public int numOfCoins;				// Stores how many coins the block holds before it's deemed empty
 
@@ -31,9 +31,9 @@ public class QuestionBlockController : MonoBehaviour
 
 	// Private Variables
 
-	private GameObject clone;			
+	//private int coinCount = 0;				// Stores how many coins the user picked up
 
-	private int coinCount;				// Stores how many coins the user picked up
+	private GameObject clone;			
 	 
 	private SpriteRenderer spriteR;		// Stores reference to the Sprite Renderer component
 
@@ -42,9 +42,9 @@ public class QuestionBlockController : MonoBehaviour
 	void Start()
 	{
 		spriteR = 	GetComponent<SpriteRenderer>();
-		countText = GetComponent<Text>();
+		//countText = GetComponent<Text>();
 
-		coinCount = 0;
+		//coinCount = 0;
 
 		// Initializes the text counting function
 		//setCountText();
@@ -70,7 +70,7 @@ public class QuestionBlockController : MonoBehaviour
 		}
 
 		// Ensures the text gets changed according to the counCount
-		//setCountText();
+		setCountText();
 	}
 
 
@@ -84,11 +84,11 @@ public class QuestionBlockController : MonoBehaviour
 
 
 		// If the block can spawn a coin and it's current value is greater than 0
-		// Move the block up a fraction of a unity
-		// Spawn a coin in that location
-		// Wait a fraction of a realtime second
-		// Sets the coin's clone to false
-		// Moves the block to it's original location
+			// Move the block up a fraction of a unity
+			// Spawn a coin in that location
+			// Wait a fraction of a realtime second
+			// Sets the coin's clone to false
+			// Moves the block to it's original location
 		if (canSpawnCoin && numOfCoins > 0)
 		{
 
@@ -156,10 +156,12 @@ public class QuestionBlockController : MonoBehaviour
 		}
 	}
 
+	/*
 	public void setCountText()
 	{
 		// Adds 1 to the coin text
 		countText.text = "Coins : " + coinCount.ToString();
 	}
+	*/
 
 }

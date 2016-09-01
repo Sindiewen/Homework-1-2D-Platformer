@@ -8,14 +8,20 @@ public class PipeController : MonoBehaviour
 	public Transform destLocation;
 	public Transform Player;
 
-	private bool IsPlayerStandingOn = false;
-
+	public bool portOnCollide 			= false;
 
 	// Private Variables
+	private bool IsPlayerStandingOn 	= false;
+
 
 	void OnTriggerEnter2D (Collider2D col)
 	{
 		IsPlayerStandingOn = true;
+
+		if(portOnCollide)
+		{
+			Player.transform.position = destLocation.transform.position;
+		}
 	}
 
 	void OnTriggerExit2D (Collider2D col)
@@ -29,10 +35,6 @@ public class PipeController : MonoBehaviour
 		{
 			if(IsPlayerStandingOn)
 			{
-				Debug.Log("Teleport Initiated");
-				//GameObject.Find("Player").GetComponent<Transform>().Translate(5,5);
-				//TODO: Teleport player to the destination pipe
-				// xpos and ypos are placeholders, repalce with destination pipe
 				Player.transform.position = destLocation.transform.position;
 			}
 
