@@ -21,8 +21,6 @@ public class PiranhaPlantController : MonoBehaviour
 	// Public Variables
 	public GameObject player;		// Stores reference to the player GameObject
 
-
-
 	public float pauseTime = 1.0f;	// Sets how long the plant should pause before doing anything else
 	public float riseHeight;		// Sets how high the plant will rise
 
@@ -48,14 +46,19 @@ public class PiranhaPlantController : MonoBehaviour
 	void OnTriggerEnter2D(Collider2D col)
 	{
 
-		// Disables the circle collider 2D component
-		circleCol.radius = 0.2f;
-	
-		// Changes the offset of the collider box
-		circleCol.offset = new Vector2(0, -20);
+		if (col.gameObject.CompareTag("Player"))
+		{
+			
+			// Disables the circle collider 2D component
+			circleCol.radius = 0.2f;
 
-		// Starts coroutine to shoot player
-		StartCoroutine(ShootPlayer());
+			// Changes the offset of the collider box
+			circleCol.offset = new Vector2(0, -20);
+
+			// Starts coroutine to shoot player
+			StartCoroutine(ShootPlayer());
+
+		}
 
 	}
 
