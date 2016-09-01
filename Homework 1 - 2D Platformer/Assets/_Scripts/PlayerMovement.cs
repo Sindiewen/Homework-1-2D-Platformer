@@ -16,6 +16,7 @@
  **/
 
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerMovement : MonoBehaviour 
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 	public float jumpForce	= 1000f;	// How much force the player will be moved upwards
 
 	public Transform groundCheck;		// Uses the transform (just below the player) to check if the player is grounded
+
 
 	// Private variables -- 
 
@@ -50,15 +52,14 @@ public class PlayerMovement : MonoBehaviour
 		anim = GetComponent<Animator>();	// Stores component reference to the Animator component
 		rb2D = GetComponent<Rigidbody2D>();	// Stores component reference to the Rigidbody2D Component 
 	}
-		
 
 	// Calls every frame
 	void Update()
 	{	// TODO: Use Physics2D.IsTouching to check if player is standing on a peranha plant spot
 
 		// Raycast/Linecast returns a bool.
-		// Checks if player is currently on the ground.
-		// From transform.position, to groundCheck.position, Raycasts and checks if they're colliding
+			// Checks if player is currently on the ground.
+			// From transform.position, to groundCheck.position, Raycasts and checks if they're colliding
 		grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
 
 
@@ -178,5 +179,8 @@ public class PlayerMovement : MonoBehaviour
 		transform.localScale = theScale; 
 	}
 		
+
+
+
 
 }
