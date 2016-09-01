@@ -34,7 +34,7 @@ public class QuestionBlockController : MonoBehaviour
 	private GameObject clone;			
 
 	private int coinCount;				// Stores how many coins the user picked up
-
+	 
 	private SpriteRenderer spriteR;		// Stores reference to the Sprite Renderer component
 
 

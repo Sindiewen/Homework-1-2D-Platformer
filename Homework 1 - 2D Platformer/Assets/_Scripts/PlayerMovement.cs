@@ -55,8 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
 	// Calls every frame
 	void Update()
-	{	// TODO: Use Physics2D.IsTouching to check if player is standing on a peranha plant spot
-
+	{	
 		// Raycast/Linecast returns a bool.
 			// Checks if player is currently on the ground.
 			// From transform.position, to groundCheck.position, Raycasts and checks if they're colliding
@@ -82,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
 		// Unity Input Manager: 
 			// Horizontal Movement: Left  - 'a', "Left Arrow", "left" 
 			// Horizontal Movement: Right - 'd', "Right Arrow", "Right"
-		if (Input.GetKey("left"))
+		if (Input.GetKey("left") || Input.GetKey("a"))
 		{
 			// Animates the player's sprite to a walking animation
 			anim.SetFloat("Speed", 1.5f);	
@@ -98,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
 			// Move player
 			moveVelocity = -speed;
 		}
-		if (Input.GetKey("right"))
+		if (Input.GetKey("right") || Input.GetKey("d"))
 		{
 			// Animates the player's sprite to a walking animation
 			anim.SetFloat("Speed", 1.5f);
