@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 	public float jumpForce	= 1000f;	// How much force the player will be moved upwards
 
 	public Transform groundCheck;		// Uses the transform (just below the player) to check if the player is grounded
+	public Text coinText;
 
 
 	// Private variables -- 
@@ -45,12 +46,22 @@ public class PlayerMovement : MonoBehaviour
 
 	private float moveVelocity = 0f;			// Stores the players current movement Velocity
 
+	private int coinCount = 0;
+
 
 	// When the game initally starts, this function will be called
 	void Awake()
 	{
 		anim = GetComponent<Animator>();	// Stores component reference to the Animator component
 		rb2D = GetComponent<Rigidbody2D>();	// Stores component reference to the Rigidbody2D Component 
+	}
+
+	// Gets called at the first frams
+	void Start()
+	{
+		// Sets Coin Text value when picking up a coin
+		coinText.text = " : " + coinCount.ToString();
+
 	}
 
 	// Calls every frame
@@ -179,6 +190,46 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 
+	void OnTriggerEnter2D(Collider2D col)
+	{
+		if (col.gameObject.CompareTag("CoinPickups"))
+		{
+			// Deactivates coin object
+			col.gameObject.SetActive(false);
+
+			// Updates CoinText value
+			setCoinText();
+		}
+
+		// If the player touches an enemy
+		if (col.gameObject.CompareTag("Enemy"))
+		{
+			// Prints to the console
+			Debug.Log("Removing the players coins");
+			// Removes all coins attached to the player
+			removeAllCoins();
+		}
+	}
+
+	// Sets the current text for how many coins the user picked up
+	public void setCoinText()
+	{
+		// Adds 1 to coin count
+		coinCount += 1;
+
+		// Sets Coin Text value when picking up a coin
+		coinText.text = " : " + coinCount.ToString();
+	}
+
+	// Removes all coins the user picked up
+	public void removeAllCoins()
+	{
+		// Removes all the coins set on the player
+		coinCount = 0;
+
+		// Sets coin text value to the new value of coinCount
+		coinText.text = " : " + coinCount.ToString();
+	}
 
 		
 

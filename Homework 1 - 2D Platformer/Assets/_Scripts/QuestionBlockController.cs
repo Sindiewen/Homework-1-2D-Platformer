@@ -15,23 +15,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class QuestionBlockController : CoinCounter 
+public class QuestionBlockController : MonoBehaviour 
 {
 
 	// Public Variables 
 	public GameObject coin;				// Stores a reference to a coin GameObject
 	public GameObject DisabledBlock;	// Stores a reference to the disabled block of this object
 
-	//public Text countText;				// Stores the Game object of the Text Object
-
 	public int numOfCoins;				// Stores how many coins the block holds before it's deemed empty
 
 	public bool canSpawnCoin;			// Stores check to see if the block can spawn a coin
 
+	public PlayerMovement movement;
 
-	// Private Variables
-
-	//private int coinCount = 0;				// Stores how many coins the user picked up
+	// Private Variables			// Stores how many coins the user picked up
 
 	private GameObject clone;			
 	 
@@ -41,13 +38,8 @@ public class QuestionBlockController : CoinCounter
 	// Gets called at the start of the scene
 	void Start()
 	{
+		// Gets the sprite renderer component
 		spriteR = 	GetComponent<SpriteRenderer>();
-		//countText = GetComponent<Text>();
-
-		//coinCount = 0;
-
-		// Initializes the text counting function
-		//setCountText();
 		
 	}
 
@@ -68,9 +60,6 @@ public class QuestionBlockController : CoinCounter
 			// This allows the function to wait a certain time before a statement executes
 			StartCoroutine(blockWiggle());
 		}
-
-		// Ensures the text gets changed according to the counCount
-		setCountText();
 	}
 
 
@@ -99,9 +88,7 @@ public class QuestionBlockController : CoinCounter
 			// Spawns a coin above the block
 			spawnCoin();
 
-			// Adds 1 to coin count
-			coinCount += 1;
-
+			movement.setCoinText();
 
 			// Waits a fraction of a second before the next statement gets called
 			yield return new WaitForSeconds(0.08f);
