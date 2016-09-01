@@ -26,15 +26,19 @@ public class PiranhaPlantController : MonoBehaviour
 
 	// Private Variables
 
+	private bool CanRise;
+
 	private float origX;			// Stores the original position of the plant X
 	private float origY;			// Stores the original position of the plant Y
 
 	private CircleCollider2D circleCol;				// Stores refrerence to the CircleCollider2D
+	private CircleCollider2D circleRiseBoundary;
 
 	// Starts at the first frame of the game
 	void Start()
 	{
 		circleCol = gameObject.GetComponent<CircleCollider2D>();	// Gets the circle collider2D Component
+		circleRiseBoundary = gameObject.GetComponent<CircleCollider2D();
 
 		origX = transform.position.x;	// Stores the original position of the plant X
 		origY = transform.position.y;	// Stores the original position of the plant Y
@@ -43,14 +47,22 @@ public class PiranhaPlantController : MonoBehaviour
 	// When the player enters the trigger
 	void OnTriggerEnter2D(Collider2D col)
 	{
-		// Disables the circle collider 2D component
-		circleCol.radius = 0.2f;
 
-		// Changes the offset of the collider box
-		circleCol.offset = new Vector2(0, -20);
+		// The Plant can rise out of the pipe
+		CanRise = true;
 
-		// Starts coroutine to shoot player
-		StartCoroutine(ShootPlayer());
+		// If the plant can rise out of the pipe
+		if (CanRise)
+		{
+			// Disables the circle collider 2D component
+			circleCol.radius = 0.2f;
+
+			// Changes the offset of the collider box
+			circleCol.offset = new Vector2(0, -20);
+
+			// Starts coroutine to shoot player
+			StartCoroutine(ShootPlayer());
+		}
 	}
 
 
@@ -60,6 +72,9 @@ public class PiranhaPlantController : MonoBehaviour
 		// Function Variables
 		float yPos = transform.position.y;	// Stores y corordinate of Plant's original position
 		float xPos = transform.position.x;	// Stores x corordinate of Plant's original position
+
+		// Wait a certain ammount of time before the next statement gets called
+		yield return new WaitForSeconds(pauseTime/2);
 
 		//Moves plant upwards
 		this.transform.position = new Vector2 (xPos, yPos + riseHeight);
