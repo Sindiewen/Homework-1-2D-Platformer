@@ -41,17 +41,23 @@ public class PipeController : MonoBehaviour
 
 	void OnTriggerEnter2D (Collider2D col)
 	{
-		// If player is standing on the GameObjects Trigger
-		IsPlayerStandingOn = true;
 
-		// If PortOnCollide is true
+		if (col.gameObject.CompareTag("Player"))
+		{
+			// If player is standing on the GameObjects Trigger
+			IsPlayerStandingOn = true;
+
+			// If PortOnCollide is true
 			// Immediately teleport player to the destination
 			// (Generally use this for downward facing pipes
-		if(portOnCollide)
-		{
-			// Starts InvertedPlayerTeleport coroutine
-			StartCoroutine(invertedPlayerTeleport());
+			if(portOnCollide)
+			{
+				// Starts InvertedPlayerTeleport coroutine
+				StartCoroutine(invertedPlayerTeleport());
+			}
 		}
+
+
 	}
 
 	// If player exits the GameObjects trigger

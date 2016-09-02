@@ -12,15 +12,19 @@ using System.Collections;
 public class CoinRotaor : MonoBehaviour 
 {
 
+	// Public Variables
+	public float Speed = 0;
+
 	// Private Variables
-	public Vector3 rotate = new Vector2 (0f, 15); // Stores a vector 2 for rotating the coin object
+	private Vector3 rotate = new Vector2 (0f, 15); // Stores a vector 2 for rotating the coin object
 
 	void FixedUpdate()
 	{
 
 		// Rotates the coin smoothly every frame
-		// Time.Delta time ensures the rotation is framerate indipendent
-		transform.Rotate(rotate * Time.deltaTime);
+			// Time.Delta time ensures the rotation is framerate indipendent
+			// Multiplies with speed to increase how fast the coin rotates
+		transform.Rotate(rotate * Time.deltaTime * Speed);
 
 	}
 

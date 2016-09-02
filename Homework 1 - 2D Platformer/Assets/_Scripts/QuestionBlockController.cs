@@ -26,11 +26,13 @@ public class QuestionBlockController : MonoBehaviour
 
 	public bool canSpawnCoin;			// Stores check to see if the block can spawn a coin
 
-	public PlayerMovement movement;
+	public PlayerMovement movement;		// Stores a reference to the player movement script
 
-	// Private Variables			// Stores how many coins the user picked up
+	public float coinJumpForce;			// Stores a float value to the coin jump force
 
-	private GameObject clone;			
+	// Private Variables			
+
+	private GameObject clone;			// Stores reference to the cloned object		
 	 
 	private SpriteRenderer spriteR;		// Stores reference to the Sprite Renderer component
 
@@ -38,13 +40,9 @@ public class QuestionBlockController : MonoBehaviour
 	// Gets called at the start of the scene
 	void Start()
 	{
-		// Gets the sprite renderer component
-		spriteR = 	GetComponent<SpriteRenderer>();
-		
+		spriteR = 	GetComponent<SpriteRenderer>();		// Gets the sprite renderer component
 	}
-
-
-
+		
 
 	// If the player successfully collides, and hatted the block
 	void OnCollisionEnter2D(Collision2D col)
@@ -80,6 +78,7 @@ public class QuestionBlockController : MonoBehaviour
 			// Moves the block to it's original location
 		if (canSpawnCoin && numOfCoins > 0)
 		{
+			Debug.Log("Wiggling block");
 
 			// Moves block up a fraction of a Unity unit
 			this.transform.position = new Vector2(xPos, yPos + 0.2f);
@@ -88,6 +87,7 @@ public class QuestionBlockController : MonoBehaviour
 			// Spawns a coin above the block
 			spawnCoin();
 
+			// Calls the movement variables script to call the setCoinText() function
 			movement.setCoinText();
 
 			// Waits a fraction of a second before the next statement gets called
@@ -95,6 +95,7 @@ public class QuestionBlockController : MonoBehaviour
 
 			// Disables cloned coin object
 			clone.SetActive(false);
+			//DestroyObject(clone);
 
 			// Returns the box to it's original location
 			this.transform.position = new Vector2(xPos, yPos);
@@ -117,14 +118,15 @@ public class QuestionBlockController : MonoBehaviour
 		// Function Variables
 		float yPos = transform.position.y; 	// Stores Y corordinate of the blocks original location
 		float xPos = transform.position.x;	// Stores X cororfinate of the blocks original location
-
+	
 
 		// If there are coins attached to this block that are spawnable
 		if (numOfCoins > 0)
 		{
+			Debug.Log("Spawning Coin");
 			// Spawns a coin above the current block	
 			clone = Instantiate(coin, new Vector2(xPos, yPos + 1), Quaternion.identity) as GameObject;
-		
+
 			// Decraments num of Coins down by 1
 			numOfCoins--;
 
@@ -143,12 +145,5 @@ public class QuestionBlockController : MonoBehaviour
 		}
 	}
 
-	/*
-	public void setCountText()
-	{
-		// Adds 1 to the coin text
-		countText.text = "Coins : " + coinCount.ToString();
-	}
-	*/
 
 }
