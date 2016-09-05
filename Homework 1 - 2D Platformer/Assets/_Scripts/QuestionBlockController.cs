@@ -41,7 +41,7 @@ public class QuestionBlockController : MonoBehaviour
 	void Start()
 	{
 		spriteR = 	GetComponent<SpriteRenderer>();		// Gets the sprite renderer component
-		coin = GetComponent<GameObject>();
+		//coin 	= 	GetComponent<GameObject>();
 	}
 		
 
@@ -119,10 +119,12 @@ public class QuestionBlockController : MonoBehaviour
 		float yPos = transform.position.y; 	// Stores Y corordinate of the blocks original location
 		float xPos = transform.position.x;	// Stores X cororfinate of the blocks original location
 	
-		Vector3 startPos = clone.transform.position;
+		//Vector3 startPos = clone.transform.position;
 
-		clone = (GameObject)Instantiate(coin, startPos, Quaternion.identity) as GameObject;
-		clone.rigidbody2D; // = transform.GetComponent<rigidbody2D>().velocity;
+		//clone = Instantiate(coin, new Vector2(xPos, yPos + 1), Quaternion.identity) as GameObject;
+
+		//clone = (GameObject)Instantiate(coin, startPos, Quaternion.identity) as GameObject;
+		//clone.rigidbody2D; // = transform.GetComponent<rigidbody2D>().velocity;
 
 
 		/*
