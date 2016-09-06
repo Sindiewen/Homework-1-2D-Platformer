@@ -46,14 +46,7 @@ public class BrickController : MonoBehaviour
 		// Function Variables
 		float yPos = transform.position.y; 	// Stores Y corordinate of the blocks original location
 		float xPos = transform.position.x;	// Stores X cororfinate of the blocks original location
-
-
-
-		// If the block can spawn a coin and it's current value is greater than 0
-			// Move the block up a fraction of a 
-			// Wait a fraction of a realtime second
-			// Moves the block to it's original location
-
+	
 		// Moves block up a fraction of a Unity unit
 		this.transform.position = new Vector2(xPos, yPos + 0.2f);
 

@@ -19,10 +19,12 @@ public class PiranhaPlantController : MonoBehaviour
 {
 
 	// Public Variables
-	public GameObject player;		// Stores reference to the player GameObject
+	//public GameObject player;		// Stores reference to the player GameObject
 
 	public float pauseTime = 1.0f;	// Sets how long the plant should pause before doing anything else
 	public float riseHeight;		// Sets how high the plant will rise
+
+	[HideInInspector] public bool plantSuspend;
 
 	// Private Variables
 
@@ -36,6 +38,8 @@ public class PiranhaPlantController : MonoBehaviour
 	{
 		circleCol = gameObject.GetComponent<CircleCollider2D>();	// Gets the circle collider2D Component
 
+		plantSuspend = false; 			// The plant is not suspended
+
 		origX = transform.position.x;	// Stores the original position of the plant X
 		origY = transform.position.y;	// Stores the original position of the plant Y
 	}
@@ -45,26 +49,26 @@ public class PiranhaPlantController : MonoBehaviour
 	// When the player enters the trigger
 	void OnTriggerEnter2D(Collider2D col)
 	{
-
-		if (col.gameObject.CompareTag("Player"))
+		if (plantSuspend == false)
 		{
-			
-			// Disables the circle collider 2D component
-			circleCol.radius = 0.2f;
+			if (col.gameObject.CompareTag("Player"))
+			{
+				// Disables the circle collider 2D component
+				circleCol.radius = 0.2f;
 
-			// Changes the offset of the collider box
-			circleCol.offset = new Vector2(0, -20);
+				// Changes the offset of the collider box
+				circleCol.offset = new Vector2(0, -20);
 
-			// Starts coroutine to shoot player
-			StartCoroutine(ShootPlayer());
-
+				// Starts coroutine to collide and interact with the player
+				StartCoroutine(riseFromPipe());
+			}
 		}
-
 	}
 
 
-	// Shoots the player when they arrive in the trigger radius
-	IEnumerator ShootPlayer()
+	// The plant rises from the pipe
+		// Uses a coroutine to specify how long the plant will rise out of the pipe too attack the player
+	IEnumerator riseFromPipe()
 	{
 		// Function Variables
 		float yPos = transform.position.y;	// Stores y corordinate of Plant's original position
@@ -90,6 +94,8 @@ public class PiranhaPlantController : MonoBehaviour
 
 		// Returns collider radius to the original location
 		circleCol.radius = 10.0f;
+
+		yield return new WaitForSeconds(0.5f);
 	}	
 
 

@@ -19,29 +19,28 @@ public class QuestionBlockController : MonoBehaviour
 {
 
 	// Public Variables 
-	public GameObject coin;				// Stores a reference to a coin GameObject
-	public GameObject DisabledBlock;	// Stores a reference to the disabled block of this object
+	public GameObject 		coin;				// Stores a reference to a coin GameObject
+	public GameObject 		DisabledBlock;	// Stores a reference to the disabled block of this object
 
-	public int numOfCoins;				// Stores how many coins the block holds before it's deemed empty
+	public PlayerMovement 	movement;		// Stores a reference to the player movement script
+	public Transform 	  	coinSpawn;	
 
-	public bool canSpawnCoin;			// Stores check to see if the block can spawn a coin
+	public int 		numOfCoins;				// Stores how many coins the block holds before it's deemed empty
 
-	public PlayerMovement movement;		// Stores a reference to the player movement script
+	public bool 	canSpawnCoin;			// Stores check to see if the block can spawn a coin
 
-	//public float coinJumpForce;			// Stores a float value to the coin jump force
+	public float 	coinJumpForce;			// Stores a float value to the coin jump force
 
 	// Private Variables			
 
-	private GameObject clone;			// Stores reference to the cloned object		
-	 
-	private SpriteRenderer spriteR;		// Stores reference to the Sprite Renderer component
+	protected GameObject 		clone;			// Stores reference to the cloned object		
+	protected SpriteRenderer 	spriteR;		// Stores reference to the Sprite Renderer component
 
 
 	// Gets called at the start of the scene
 	void Start()
 	{
 		spriteR = 	GetComponent<SpriteRenderer>();		// Gets the sprite renderer component
-		//coin 	= 	GetComponent<GameObject>();
 	}
 		
 
@@ -84,7 +83,6 @@ public class QuestionBlockController : MonoBehaviour
 			// Moves block up a fraction of a Unity unit
 			this.transform.position = new Vector2(xPos, yPos + 0.2f);
 
-
 			// Spawns a coin above the block
 			spawnCoin();
 
@@ -94,20 +92,23 @@ public class QuestionBlockController : MonoBehaviour
 			// Waits a fraction of a second before the next statement gets called
 			yield return new WaitForSeconds(0.08f);
 
-			// Destroyes cloned coin object
-			DestroyObject(clone);
+			// Player cannot interact with box yet
+			canSpawnCoin = false;
 
 			// Returns the box to it's original location
 			this.transform.position = new Vector2(xPos, yPos);
 
+			yield return new WaitForSeconds(0.8f);
+
+			// Destroyes cloned coin object
+			DestroyObject(clone);
+
+			// Player can now interact with the box
+			canSpawnCoin = true;
 		}
 
 
 	}
-
-
-
-
 
 
 	// Spawns a coin above the box gameObject and wiggles box signifying the user
@@ -119,34 +120,15 @@ public class QuestionBlockController : MonoBehaviour
 		float yPos = transform.position.y; 	// Stores Y corordinate of the blocks original location
 		float xPos = transform.position.x;	// Stores X cororfinate of the blocks original location
 	
-		//Vector3 startPos = clone.transform.position;
-
-		//clone = Instantiate(coin, new Vector2(xPos, yPos + 1), Quaternion.identity) as GameObject;
-
-		//clone = (GameObject)Instantiate(coin, startPos, Quaternion.identity) as GameObject;
-		//clone.rigidbody2D; // = transform.GetComponent<rigidbody2D>().velocity;
-
-
-		/*
-		// forward firing start location
-
-		Vector3 start = transform.position;
-		start += transform.forward.normalized * 10;
-
-		if (weapons[0] == Arsenal.Spin)
-		{
-			GameObject obj = (GameObject)Instantiate(Prefab[0], start, transform.rotation);
-			obj.rigidbody.velocity = transform.rigidbody.velocity;
-		}
-		 
-		 * */
-
 		// If there are coins attached to this block that are spawnable
 		if (numOfCoins > 0)
 		{
 			Debug.Log("Spawning Coin");
-			// Spawns a coin above the current block	
-			clone = Instantiate(coin, new Vector2(xPos, yPos + 1), Quaternion.identity) as GameObject;
+			// Spawns a coin on the CoinSpawn Location	
+			clone = Instantiate(coin, coinSpawn.transform.position, Quaternion.identity) as GameObject;
+
+			// Adds force upwards on the coinSpawn location
+			clone.GetComponent<Rigidbody2D>().AddForce(transform.up * coinJumpForce);
 
 			// Decraments num of Coins down by 1
 			numOfCoins--;
@@ -165,6 +147,5 @@ public class QuestionBlockController : MonoBehaviour
 			}
 		}
 	}
-
 
 }

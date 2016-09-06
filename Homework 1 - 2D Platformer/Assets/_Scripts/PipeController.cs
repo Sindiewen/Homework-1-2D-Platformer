@@ -99,7 +99,7 @@ public class PipeController : MonoBehaviour
 		PipeCollider.SetActive(false);
 
 		// Moves the player downward by current position - 20 on the Y axis
-		this.transform.position = new Vector2(xPos, yPos - 20f);
+		//this.transform.position = new Vector2(xPos, yPos - 20f);
 
 		// Waits a fraction of a second before the next statement gets called
 		yield return new WaitForSeconds(0.5f);
@@ -124,7 +124,7 @@ public class PipeController : MonoBehaviour
 		PipeCollider.SetActive(false);
 
 		// Moves the player downward by current position - 20 on the Y axis
-		this.transform.position = new Vector2(xPos, yPos + 20f);
+		//this.transform.position = new Vector2(xPos, yPos + 20f);
 
 		// Waits a fraction of a second before the next statement gets called
 		yield return new WaitForSeconds(0.5f);
