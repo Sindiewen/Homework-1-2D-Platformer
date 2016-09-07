@@ -22,11 +22,12 @@ public class PiranhaPlantController : MonoBehaviour
 	//public GameObject player;		// Stores reference to the player GameObject
 
 	public float pauseTime = 1.0f;	// Sets how long the plant should pause before doing anything else
-	public float riseHeight;		// Sets how high the plant will rise
-
-	[HideInInspector] public bool plantSuspend;
+	public float riseHeight;		// Sets how high the plant will rise 
 
 	// Private Variables
+
+	// TODO: Move plantSuspend to the playerMovement.cs script
+	private bool plantSuspend;
 
 	private float origX;			// Stores the original position of the plant X
 	private float origY;			// Stores the original position of the plant Y
@@ -38,20 +39,27 @@ public class PiranhaPlantController : MonoBehaviour
 	{
 		circleCol = gameObject.GetComponent<CircleCollider2D>();	// Gets the circle collider2D Component
 
-		plantSuspend = false; 			// The plant is not suspended
+		//plantSuspend = false; 			// The plant is not suspended
 
 		origX = transform.position.x;	// Stores the original position of the plant X
 		origY = transform.position.y;	// Stores the original position of the plant Y
 	}
 
-
+	// Public void function suspends the plant rising from the pipe
+		// Gets called from playermovement.cs
+	public void suspendPlantRise()
+	{
+		// Suspends the plant rising from the pipe
+		plantSuspend = true;
+	}
 
 	// When the player enters the trigger
 	void OnTriggerEnter2D(Collider2D col)
 	{
-		if (plantSuspend == false)
+		if (col.gameObject.CompareTag("Player"))
 		{
-			if (col.gameObject.CompareTag("Player"))
+			plantSuspend = true;
+			if (!plantSuspend)
 			{
 				// Disables the circle collider 2D component
 				circleCol.radius = 0.2f;

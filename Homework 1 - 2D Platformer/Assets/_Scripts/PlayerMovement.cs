@@ -213,10 +213,14 @@ public class PlayerMovement : MonoBehaviour
 			removeAllCoins();
 		}
 
+		// If the player collides with an object with the "PlantSuspend" tag
+			// Suspend the plant rising
+			// Calls the "PiranhaPlantController.cs" script
 		if (col.gameObject.CompareTag("PlantSuspend"))
 		{
 			Debug.Log("Suspending plant rise");
-			plant.plantSuspend = true;
+			// Suspends plant rise
+			plant.suspendPlantRise();
 		}
 	}
 
