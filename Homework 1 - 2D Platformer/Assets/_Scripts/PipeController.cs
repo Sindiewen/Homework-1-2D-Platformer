@@ -92,8 +92,8 @@ public class PipeController : MonoBehaviour
 	IEnumerator PlayerTeleport()
 	{
 		// Function Variables
-		float yPos = transform.position.y; 	// Stores Y corordinate of the blocks original location
-		float xPos = transform.position.x;	// Stores X cororfinate of the blocks original location
+		//float yPos = transform.position.y; 	// Stores Y corordinate of the blocks original location
+		//float xPos = transform.position.x;	// Stores X cororfinate of the blocks original location
 
 		// Disables the collider object so the player can pass through the object
 		PipeCollider.SetActive(false);
@@ -117,8 +117,8 @@ public class PipeController : MonoBehaviour
 	IEnumerator invertedPlayerTeleport()
 	{
 		// Function Variables
-		float yPos = transform.position.y; 	// Stores Y corordinate of the blocks original location
-		float xPos = transform.position.x;	// Stores X cororfinate of the blocks original location
+		//float yPos = transform.position.y; 	// Stores Y corordinate of the blocks original location
+		//float xPos = transform.position.x;	// Stores X cororfinate of the blocks original location
 
 		// Disables the collider object so the player can pass through the object
 		PipeCollider.SetActive(false);

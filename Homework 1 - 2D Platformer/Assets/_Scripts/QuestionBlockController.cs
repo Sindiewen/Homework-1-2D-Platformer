@@ -115,11 +115,6 @@ public class QuestionBlockController : MonoBehaviour
 	// collided with it.
 	void spawnCoin()
 	{
-
-		// Function Variables
-		float yPos = transform.position.y; 	// Stores Y corordinate of the blocks original location
-		float xPos = transform.position.x;	// Stores X cororfinate of the blocks original location
-	
 		// If there are coins attached to this block that are spawnable
 		if (numOfCoins > 0)
 		{
@@ -132,7 +127,6 @@ public class QuestionBlockController : MonoBehaviour
 
 			// Decraments num of Coins down by 1
 			numOfCoins--;
-
 
 			// If the ammount of coins inside the block is == to 0
 				// Turns off the current game object's sprite renderer

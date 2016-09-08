@@ -24,6 +24,8 @@ public class PiranhaPlantController : MonoBehaviour
 	public float pauseTime = 1.0f;	// Sets how long the plant should pause before doing anything else
 	public float riseHeight;		// Sets how high the plant will rise 
 
+	public GameObject plantSuspendTrigger;
+
 	// Private Variables
 
 	private float origX;			// Stores the original position of the plant X
@@ -73,6 +75,9 @@ public class PiranhaPlantController : MonoBehaviour
 		// Wait a certain ammount of time before the next statement gets called
 		yield return new WaitForSeconds(pauseTime * 0.5f);
 
+		// Disables the trigger to suspend the plant
+		plantSuspendTrigger.SetActive(false);
+
 		//Moves plant upwards
 		this.transform.position = new Vector2 (xPos, yPos + riseHeight);
 
@@ -88,20 +93,14 @@ public class PiranhaPlantController : MonoBehaviour
 		// Wait a certain amount of time before the next statement gets called
 		yield return new WaitForSeconds(pauseTime);
 
+		// Re-enables the trigger to suspend the plant
+		plantSuspendTrigger.SetActive(true);
+
 		// Returns collider radius to the original location
 		circleCol.radius = 10.0f;
 
 		yield return new WaitForSeconds(0.5f);
+
+
 	}	
-
-
-	/*
-	// Public void function suspends the plant rising from the pipe
-		// Gets called from playermovement.cs
-	public void suspendPlantRise()
-	{
-		// Suspends the plant rising from the pipe
-		plantSuspend = true;
-	}
-	*/
 }

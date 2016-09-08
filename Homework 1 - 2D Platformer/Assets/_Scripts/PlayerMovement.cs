@@ -13,6 +13,9 @@
  * 
  * This flips the sprite on the X axis when moving left and right
  * 
+ * This script controls the printing of how many coins the player has
+ * onto the game screen, aswell control the Plan suspension.
+ * 
  **/
 
 using UnityEngine;
@@ -35,9 +38,7 @@ public class PlayerMovement : MonoBehaviour
 	public Transform groundCheck;		// Uses the transform (just below the player) to check if the player is grounded
 	public Text coinText;
 
-	public GameObject plantToSuspend;
-
-	//public PiranhaPlantController plant;
+	public GameObject[] plantToSuspend;	// Stores an array of plant Game Objects to suspend
 
 	// Private variables -- 
 
@@ -117,8 +118,10 @@ public class PlayerMovement : MonoBehaviour
 			// Animates the player's sprite to a walking animation
 			anim.SetFloat("Speed", 1.5f);
 
+			// If the player is not facing right
 			if (!facingRight)
 			{
+				// Flip the sprite
 				flip();
 			}
 
@@ -223,17 +226,23 @@ public class PlayerMovement : MonoBehaviour
 			Debug.Log("Suspending plant rise");
 			// Suspends plant rise
 
-			plantToSuspend.SetActive(false);
-
-
-			//plant.suspendPlantRise();
+			// Disables the plant GameObject
+			for (int i = 0; i < plantToSuspend.Length; i++)
+			{
+				plantToSuspend[i].SetActive(false);
+			}
 		}
 	}
 
 	void OnTriggerExit2D(Collider2D col)
 	{
 		Debug.Log("Re-enabling plant");
-		plantToSuspend.SetActive(true);
+
+		// Re-enables the plant game objects
+		for (int i = 0; i < plantToSuspend.Length; i++)
+		{
+			plantToSuspend[i].SetActive(true);
+		}	
 	}
 
 	// Sets the current text for how many coins the user picked up
