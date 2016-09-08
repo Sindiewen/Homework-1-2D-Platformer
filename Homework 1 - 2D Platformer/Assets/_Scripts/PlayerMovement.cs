@@ -35,7 +35,9 @@ public class PlayerMovement : MonoBehaviour
 	public Transform groundCheck;		// Uses the transform (just below the player) to check if the player is grounded
 	public Text coinText;
 
-	public PiranhaPlantController plant;
+	public GameObject plantToSuspend;
+
+	//public PiranhaPlantController plant;
 
 	// Private variables -- 
 
@@ -55,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		anim = GetComponent<Animator>();	// Stores component reference to the Animator component
 		rb2D = GetComponent<Rigidbody2D>();	// Stores component reference to the Rigidbody2D Component 
-		//plant = GetComponent<PiranhaPlantController>();
+
 	}
 
 	// Gets called at the first frams
@@ -220,8 +222,18 @@ public class PlayerMovement : MonoBehaviour
 		{
 			Debug.Log("Suspending plant rise");
 			// Suspends plant rise
-			plant.suspendPlantRise();
+
+			plantToSuspend.SetActive(false);
+
+
+			//plant.suspendPlantRise();
 		}
+	}
+
+	void OnTriggerExit2D(Collider2D col)
+	{
+		Debug.Log("Re-enabling plant");
+		plantToSuspend.SetActive(true);
 	}
 
 	// Sets the current text for how many coins the user picked up

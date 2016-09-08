@@ -26,9 +26,6 @@ public class PiranhaPlantController : MonoBehaviour
 
 	// Private Variables
 
-	// TODO: Move plantSuspend to the playerMovement.cs script
-	private bool plantSuspend;
-
 	private float origX;			// Stores the original position of the plant X
 	private float origY;			// Stores the original position of the plant Y
 
@@ -45,32 +42,23 @@ public class PiranhaPlantController : MonoBehaviour
 		origY = transform.position.y;	// Stores the original position of the plant Y
 	}
 
-	// Public void function suspends the plant rising from the pipe
-		// Gets called from playermovement.cs
-	public void suspendPlantRise()
-	{
-		// Suspends the plant rising from the pipe
-		plantSuspend = true;
-	}
-
 	// When the player enters the trigger
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		if (col.gameObject.CompareTag("Player"))
 		{
-			plantSuspend = true;
-			if (!plantSuspend)
-			{
-				// Disables the circle collider 2D component
-				circleCol.radius = 0.2f;
+			
+			// Disables the circle collider 2D component
+			circleCol.radius = 0.2f;
+		
+			// Changes the offset of the collider box
+			circleCol.offset = new Vector2(0, -20);
 
-				// Changes the offset of the collider box
-				circleCol.offset = new Vector2(0, -20);
-
-				// Starts coroutine to collide and interact with the player
-				StartCoroutine(riseFromPipe());
-			}
+			// Starts coroutine to collide and interact with the player
+			StartCoroutine(riseFromPipe());
 		}
+
+
 	}
 
 
@@ -107,4 +95,13 @@ public class PiranhaPlantController : MonoBehaviour
 	}	
 
 
+	/*
+	// Public void function suspends the plant rising from the pipe
+		// Gets called from playermovement.cs
+	public void suspendPlantRise()
+	{
+		// Suspends the plant rising from the pipe
+		plantSuspend = true;
+	}
+	*/
 }
