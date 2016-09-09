@@ -72,6 +72,10 @@ public class PiranhaPlantController : MonoBehaviour
 		float yPos = transform.position.y;	// Stores y corordinate of Plant's original position
 		float xPos = transform.position.x;	// Stores x corordinate of Plant's original position
 
+		Vector2 newPos = new Vector2(xPos, yPos + riseHeight);
+
+		float lerpTime = 0.0f;
+
 		// Wait a certain ammount of time before the next statement gets called
 		yield return new WaitForSeconds(pauseTime * 0.5f);
 
@@ -79,7 +83,10 @@ public class PiranhaPlantController : MonoBehaviour
 		plantSuspendTrigger.SetActive(false);
 
 		//Moves plant upwards
-		this.transform.position = new Vector2 (xPos, yPos + riseHeight);
+		//this.transform.position = new Vector2 (xPos, yPos + riseHeight);
+		Vector2.Lerp(transform.position, newPos, lerpTime);
+			// v =  time.deltatime * rate (time/distance)
+			// float rateD = 1.0f / t
 
 		// Wait a certain ammount of time before the next statement gets called
 		yield return new WaitForSeconds(pauseTime);
